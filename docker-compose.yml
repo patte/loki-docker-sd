@@ -1,0 +1,24 @@
+version: '2'
+services:
+  docker-sd:
+    image: shorez/loki-docker-sd
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - docker-sd:/targets
+  promtail:
+    image: "grafana/promtail"
+    volumes:
+      - ./example-config.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - docker-sd:/targets
+    ports:
+      - 9080:9080
+  loki:
+    image: grafana/loki
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+
+volumes:
+  docker-sd:
