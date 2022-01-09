@@ -111,6 +111,11 @@ func target(ctx context.Context, r chan<- Target, c *client.Client, containerID 
 		t[k] = v
 	}
 
+	if t[MetaStatus] != "running" {
+		r <- nil
+		return
+	}
+
 	r <- t
 	return
 }
