@@ -21,7 +21,7 @@ type Config struct {
 func main() {
 	var cfg Config
 	pflag.StringVarP(&cfg.file, "file", "f", "targets.json", "File to write targets to")
-	pflag.DurationVarP(&cfg.interval, "interval", "i", 30*time.Second, "Interval to refresh targets at")
+	pflag.DurationVarP(&cfg.interval, "interval", "i", 10*time.Second, "Interval to refresh targets at")
 	pflag.Parse()
 
 	if err := discover(cfg); err != nil {
